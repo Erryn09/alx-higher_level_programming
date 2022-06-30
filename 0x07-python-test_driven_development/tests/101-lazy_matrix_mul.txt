@@ -1,0 +1,114 @@
+===============================
+ How to Use 101-lazy_matrix_mul.py
+===============================
+
+This library show usage of ``lazy_matrix_mul()``.
+
+Lists
+=====
+
+``lazy_matrix_mul()`` returns the product of its arguments.
+
+::
+
+    >>> lazy_matrix_mul = __import__('101-lazy_matrix_mul').lazy_matrix_mul
+    >>> a = [[1, 2, 3], [4, 5, 6]]
+    >>> b = [[7, 8], [9, 10], [11, 12]]
+    >>> lazy_matrix_mul(a, b)
+    array([[ 58,  64],
+           [139, 154]])
+
+    >>> a = [[3, 4, 2]]
+    >>> b = [[13, 9, 7, 15], [8, 7, 4, 6], [6, 4, 0, 3]]
+    >>> lazy_matrix_mul(a, b)
+    array([[83, 63, 37, 75]])
+
+    >>> a = [[1, 2, 3]]
+    >>> b = [[4], [5], [6]]
+    >>> lazy_matrix_mul(a, b)
+    array([[32]])
+
+    >>> a = [[4], [5], [6]]
+    >>> b = [[1, 2, 3]]
+    >>> lazy_matrix_mul(a, b)
+    array([[ 4,  8, 12],
+           [ 5, 10, 15],
+           [ 6, 12, 18]])
+
+Non-Lists
+=========
+
+::
+
+    >>> a = 1
+    >>> b = [[7, 8], [9, 10], [11, 12]]
+    >>> lazy_matrix_mul(a, b)
+    Traceback (most recent call last):
+      ...
+    ValueError: Scalar operands are not allowed, use '*' instead
+
+    >>> a = (1, 2, 3)
+    >>> b = [[7, 8], [9, 10], [11, 12]]
+    >>> lazy_matrix_mul(a, b)
+    array([58, 64])
+
+    >>> a = [1, (1, 2, 3)]
+    >>> b = [[7, 8], [9, 10], [11, 12]]
+    >>> lazy_matrix_mul(a, b)
+    Traceback (most recent call last):
+      ...
+    ValueError: setting an array element with a sequence.
+
+
+::
+
+    >>> a = []
+    >>> b = [[7, 8], [9, 10], [11, 12]]
+    >>> lazy_matrix_mul(a, b)
+    Traceback (most recent call last):
+      ...
+    ValueError: shapes (0,) and (3,2) not aligned: 0 (dim 0) != 3 (dim 0)
+
+    >>> a = [[7, 8], [9, 10], [11, 12]]
+    >>> b = [[]]
+    >>> lazy_matrix_mul(a, b)
+    Traceback (most recent call last):
+      ...
+    ValueError: shapes (3,2) and (1,0) not aligned: 2 (dim 1) != 1 (dim 0)
+
+
+::
+
+    >>> a = [[7, 'a'], [9, 10]]
+    >>> b = [[7, 8], [9, 10]]
+    >>> lazy_matrix_mul(a, b)
+    Traceback (most recent call last):
+      ...
+    TypeError: invalid data type for einsum
+
+    >>> a = "words"
+    >>> b = [[7, 8], [9, 10]]
+    >>> lazy_matrix_mul(a, b)
+    Traceback (most recent call last):
+      ...
+    ValueError: Scalar operands are not allowed, use '*' instead
+
+::
+
+    >>> a = [[7, 8, 9], [9, 10, 11]]
+    >>> b = [[7, 8, 9], [9, 10, 11]]
+    >>> lazy_matrix_mul(a, b)
+    Traceback (most recent call last):
+      ...
+    ValueError: shapes (2,3) and (2,3) not aligned: 3 (dim 1) != 2 (dim 0)
+
+    >>> a = [[7, 8, 9], [9, 10, 11]]
+    >>> lazy_matrix_mul(a)
+    Traceback (most recent call last):
+      ...
+    TypeError: lazy_matrix_mul() missing 1 required positional argument: 'm_b'
+
+    >>> lazy_matrix_mul()
+    Traceback (most recent call last):
+      ...
+    TypeError: lazy_matrix_mul() missing 2 required positional arguments: 'm_a' and 'm_b'
